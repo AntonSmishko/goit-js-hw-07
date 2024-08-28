@@ -20,12 +20,14 @@ function createBoxes(amount) {
    boxesEl.innerHTML = '';
 
    let divElSize = 30;
-   for (let i = 0; i < amount; i += 1) {
-      const divEl = document.createElement('div');
-      divEl.style.width = `${divElSize}px`;
-      divEl.style.height = `${divElSize}px`;
-      divEl.style.backgroundColor = getRandomHexColor();
-      boxesEl.append(divEl);
-      divElSize += 10;
+   if (amount <= 100) {
+      for (let i = 0; i < amount; i += 1) {
+         const divEl = document.createElement('div');
+         divEl.style.width = `${divElSize}px`;
+         divEl.style.height = `${divElSize}px`;
+         divEl.style.backgroundColor = getRandomHexColor();
+         boxesEl.append(divEl);
+         divElSize += 10;
+      }
    }
 }
