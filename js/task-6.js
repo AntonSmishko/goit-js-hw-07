@@ -8,7 +8,14 @@ const boxesEl = document.querySelector('#boxes');
 const btnCreateEl = document.querySelector('[data-create]');
 const btnDesEl = document.querySelector('[data-destroy]');
 
-btnCreateEl.addEventListener('click', () => createBoxes(Number(inputEl.value)));
+btnCreateEl.addEventListener('click', e => {
+   const altAmount = Number(inputEl.value);
+   if (isNaN(altAmount) || altAmount > 100 || altAmount < 1) {
+      console.error('Taarget values is not a valid number');
+      return;
+   }
+   createBoxes(altAmount);
+});
 btnDesEl.addEventListener('click', destroyBoxes);
 
 function destroyBoxes(evt) {
@@ -20,14 +27,15 @@ function createBoxes(amount) {
    boxesEl.innerHTML = '';
 
    let divElSize = 30;
-   if (amount <= 100) {
-      for (let i = 0; i < amount; i += 1) {
-         const divEl = document.createElement('div');
-         divEl.style.width = `${divElSize}px`;
-         divEl.style.height = `${divElSize}px`;
-         divEl.style.backgroundColor = getRandomHexColor();
-         boxesEl.append(divEl);
-         divElSize += 10;
-      }
+
+   const elementsToAppend = [];
+   for (let i = 0; i < amount; i += 1) {
+      const divEl = document.createElement('div');
+      divEl.style.width = `${divElSize}px`;
+      divEl.style.height = `${divElSize}px`;
+      divEl.style.backgroundColor = getRandomHexColor();
+      elementsToAppend.push(divEl);
+      divElSize += 10;
    }
+   boxesEl.append(...elementsToAppend);
 }
